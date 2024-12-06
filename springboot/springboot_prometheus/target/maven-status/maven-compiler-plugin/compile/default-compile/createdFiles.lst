@@ -1,0 +1,6 @@
+com\zhang\controller\BookController.class
+com\zhang\service\BookService.class
+com\zhang\mapper\BookMapper.class
+com\zhang\pojo\Book.class
+com\zhang\LibraryApplication.class
+com\zhang\service\impl\BookServiceImpl.class

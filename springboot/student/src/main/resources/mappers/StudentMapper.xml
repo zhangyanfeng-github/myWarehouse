@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--完整的接口路径-->
+<mapper namespace="com.zhang.mapper.StudentMapper">
+
+    <insert id="insertStudent">
+        insert into student value(null,'张彦锋',22)
+    </insert>
+
+    <delete id="delete">
+        delete from student where id = #{id};
+    </delete>
+
+    <update id="updateStudent">
+        update student set name='李四' where id = 4
+    </update>
+
+    <select id="queryAll" resultType="student">
+        select * from student;
+    </select>
+</mapper>
