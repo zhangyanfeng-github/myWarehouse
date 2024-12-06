@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--Setter方法注入属性值，property会调用set方法-->
+    <bean id="book" class="com.zhang.Book">
+        <property name="book_name" value="Spring"></property>
+        <property name="book_author" value="尚硅谷"></property>
+    </bean>
+
+    <!--构造器方法注入-->
+    <bean id="bookCon" class="com.zhang.Book">
+        <constructor-arg name="book_name" value="Python"></constructor-arg>
+        <constructor-arg name="book_author" value="黑马"></constructor-arg>
+
+    </bean>
+
+</beans>

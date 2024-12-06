@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--向Map中注入属性-->
+    <bean id="teacher_one" class="com.zhang.Teacher">
+        <property name="teacherId" value="1001"></property>
+        <property name="teacherName" value="波波老师"></property>
+    </bean>
+    <bean id="teacher_two" class="com.zhang.Teacher">
+        <property name="teacherId" value="1002"></property>
+        <property name="teacherName" value="苍老师"></property>
+    </bean>
+
+    <bean id="student" class="com.zhang.Student">
+        <property name="studentId" value="300001"></property>
+        <property name="studentName" value="骏骏"></property>
+        <property name="teacherMap">
+            <map>
+                <entry>
+                    <key>
+                        <value>10010</value>
+                    </key>
+                    <ref bean="teacher_one"></ref>
+                </entry>
+                <entry>
+                    <key>
+                        <value>10086</value>
+                    </key>
+                    <ref bean="teacher_two"></ref>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--使用引入外部Bean的方法来注入对象属性-->
+    <bean id="dept1" class="com.zhang.Dept">
+        <property name="dname" value="人事部"></property>
+    </bean>
+    <bean id="emp1" class="com.zhang.Emp">
+        <!--注入普通属性-->
+        <property name="ename" value="张三"></property>
+        <property name="age" value="22"></property>
+
+        <!--注入对象属性，使用外部Bean的方法，ref的dept要和bean中的id值保持一致-->
+        <property name="dept" ref="dept1"></property>
+    </bean>
+
+    <!--使用引入内部Bean的方法来注入对象属性-->
+    <bean id="emp2" class="com.zhang.Emp">
+        <!--注入普通属性-->
+        <property name="ename" value="李四"></property>
+        <property name="age" value="32"></property>
+
+        <!--注入对象属性，使用内部Bean的方法，直接嵌套Bean标签-->
+        <property name="dept">
+            <bean id="dept2" class="com.zhang.Dept">
+                <property name="dname" value="财务部"></property>
+            </bean>
+        </property>
+    </bean>
+
+    <!--通过级联属性赋值-->
+    <bean id="dept3" class="com.zhang.Dept">
+        <property name="dname" value="技术部"></property>
+    </bean>
+
+    <bean id="emp3" class="com.zhang.Emp">
+        <property name="ename" value="王五"></property>
+        <property name="age" value="10"></property>
+
+        <!--通过级联的方式注入对象属性-->
+        <property name="dept" ref="dept3"></property>
+        <property name="dept.dname" value="测试部"></property>
+    </bean>
+
+    <!--给数组类型属性注入值-->
+    <bean id="dept4" class="com.zhang.Dept">
+        <property name="dname" value="管理部"></property>
+    </bean>
+    <bean id="emp4" class="com.zhang.Emp">
+        <property name="ename" value="赵六"></property>
+        <property name="age" value="90"></property>
+        <property name="dept" ref="dept4"></property>
+
+        <property name="loves">
+            <array>
+                <value>抽烟</value>
+                <value>喝酒</value>
+                <value>烫头</value>
+            </array>
+        </property>
+    </bean>
+
+    <!--给集合类型属性注入值-->
+    <bean id="dept5" class="com.zhang.Dept">
+        <property name="dname" value="后勤部"></property>
+        <property name="empList">
+            <list>
+                <ref bean="emp5_one"></ref>
+                <ref bean="emp5_two"></ref>
+            </list>
+        </property>
+    </bean>
+    <bean id="emp5_one" class="com.zhang.Emp">
+        <property name="ename" value="userzhang"></property>
+        <property name="age" value="22"></property>
+    </bean>
+    <bean id="emp5_two" class="com.zhang.Emp">
+        <property name="ename" value="userfeng"></property>
+        <property name="age" value="56"></property>
+    </bean>
+
+</beans>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <loggers>
+        <root level="DEBUG">
+            <appender-ref ref="spring6log"/>
+            <appender-ref ref="RollingFile"/>
+            <appender-ref ref="log"/>
+        </root>
+    </loggers>
+    <appenders>
+        <!--输出日志信息到控制台-->
+        <console name="spring6log" target="SYSTEM_OUT">
+            <!--控制台输出的格式-->
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss SSS} [%t] %-3level %logger{1024} - %msg%n"/>
+        </console>
+        <!--文件会打印所有信息,这个log每次运行都会自动清空。fileName是文件的输出路径，如果不存在会被创建-->
+        <File name="log" fileName="d:/spring6_log/test.log" append="false">
+            <PatternLayout pattern="%d{HH:mm:ss SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+        </File>
+        <!--打印所有信息，如果单次大小超过size则size大小的日志会自动存到年-月文件夹下面进行压缩存档-->
+        <RollingFile name="RollingFile" fileName="d:/spring6_log/app.log"
+                     filePattern="log/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <SizeBasedTriggeringPolicy size="50MB"/>
+            <!--设置同一文件夹下最多有的文件数，默认为7-->
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+    </appenders>
+</configuration>

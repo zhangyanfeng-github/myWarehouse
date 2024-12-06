@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--根据类型自动装配-->
+<!--    <bean id="userController" class="com.zhang.auto.controller.UserController" autowire="byType">-->
+<!--    </bean>-->
+<!--    <bean id="userServicelmpl" class="com.zhang.auto.service.UserServicelmpl" autowire="byType">-->
+<!--    </bean>-->
+<!--    <bean id="userDaolmpl" class="com.zhang.auto.dao.UserDaolmpl" autowire="byType">-->
+<!--    </bean>-->
+
+    <!--根据名称自动装配-->
+    <bean id="userController" class="com.zhang.auto.controller.UserController" autowire="byName"></bean>
+    <bean id="userService" class="com.zhang.auto.service.UserServicelmpl" autowire="byName"></bean>
+    <bean id="userDao" class="com.zhang.auto.dao.UserDaolmpl" autowire="byName"></bean>
+</beans>
