@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhang.mybatis.mapper.UserMapper">
+
+    <!--int insertUser();外部调用这个方法，就会执行这段SQL语句-->
+    <insert id="insertUser">
+        insert into t_user value(null,'admin','123456',23,'男','12345@qq.com')
+    </insert>
+
+    <!--int insertUserByClass(User user);通过传参的方法来执行可变的SQL语句-->
+    <insert id="insertUserByClass">
+        insert into t_user values(null, #{username}, #{password}, #{age}, #{sex}, #{email} )
+    </insert>
+
+    <!--void updateUser();-->
+    <update id="updateUser">
+        update t_user set username='张三' where id = 3
+    </update>
+
+    <!--void deleteUser()-->
+    <delete id="deleteUser">
+        delete from t_user where id = 4
+    </delete>
+
+    <!--User getUserById(int id);-->
+    <!--
+        查询功能的标签必须设置resultType或resultMap
+        resultType：设置默认的映射关系
+        resultMap：设置自定义的映射关系
+    -->
+    <!--因为已经引入实体类包，所以直接写User也可以，不必区分大小写-->
+    <select id="getUserById" resultType="com.zhang.mybatis.pojo.User">
+        select * from t_user where id = #{id}
+    </select>
+
+    <!--List<User> getAllUser()-->
+    <select id="getAllUser" resultType="com.zhang.mybatis.pojo.User">
+        select * from t_user
+    </select>
+
+    <!--int CheckLogin(String username, String password);-->
+    <select id="CheckLogin" resultType="User">
+        select * from t_user where username = #{arg0} and password = #{arg1}
+    </select>
+
+    <!--User CheckLoginByMap(Map<String , Object> map);此方法常用-->
+    <select id="CheckLoginByMap" resultType="User">
+        select * from t_user where username = #{username} and password = #{password}
+    </select>
+
+    <!--User CheckLoginByParam(@Param("username")String username,@Param("password")String password);-->
+    <select id="CheckLoginByParam" resultType="User">
+        select * from t_user where username = #{username} and password = #{password}
+    </select>
+</mapper>

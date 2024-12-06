@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--完整的接口路径-->
+<mapper namespace="com.zhang.mybatis.mapper.SelectMapper">
+
+    <!--User getUserById(@Param("id") Integer id);-->
+    <select id="getUserById" resultType="User">
+        select * from t_user where id = #{id}
+    </select>
+
+    <!--List<User> getAllUser();-->
+    <select id="getAllUser" resultType="User">
+        select * from t_user
+    </select>
+
+    <!--Integer getCount(); 查询用户表总记录数，null不算-->
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from t_user
+    </select>
+
+    <!--Map<String,Object> getUserByIdToMap(@Param("id")Integer id);-->
+    <!--根据ID查询用户信息为一个map集合-->
+    <select id="getUserByIdToMap" resultType="Map">
+        select * from t_user where id = #{id}
+    </select>
+
+    <!--List<Map<String,Object>> getAllUserToMap();-->
+    <select id="getAllUserToMap" resultType="Map">
+        select * from t_user
+    </select>
+
+</mapper>
