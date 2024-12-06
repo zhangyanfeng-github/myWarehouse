@@ -1,0 +1,10 @@
+com\zhenghe\pojo\Email.class
+com\zhenghe\service\RedisService.class
+com\zhenghe\service\EmailService.class
+com\zhenghe\RedisApplication.class
+com\zhenghe\controller\IndexController.class
+com\zhenghe\config\WebConfig.class
+com\zhenghe\config\RedisConfig.class
+com\zhenghe\service\Impl\RedisServiceImpl.class
+com\zhenghe\service\Impl\EmailServiceImpl.class
+com\zhenghe\controller\EmailController.class

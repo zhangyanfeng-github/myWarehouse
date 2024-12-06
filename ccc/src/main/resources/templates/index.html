@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Page</title>
+    <script th:src="@{/script/jquery.min.js}" charset="utf-8"></script>
+    <script>
+
+
+
+        // import axios from 'axios';
+        //
+        // const sendEmail = function () {
+        //     var Email = document.getElementById('email').value;
+        //     var Subject = document.getElementById('subject').value;
+        //     var Text = document.getElementById('text').value;
+        //
+        //     // axios.get('http://localhost:8080/email/send/' + Email + "/" + Subject + "/" + Text)
+        //     //     .then(response => {
+        //     //         console.log(response)
+        //     //         alert("成功")
+        //     //     })
+        //     //     .catch(error => {
+        //     //         console.log(error)
+        //     //     })
+        //
+        //     const data = {
+        //         to: Email,
+        //         subject: Subject,
+        //         content: Text
+        //     }
+        //
+        //     var Email = document.getElementById('email').value;
+        //     var Subject = document.getElementById('subject').value;
+        //     var Text = document.getElementById('text').value;
+        //     $.ajax({
+        //         type: 'post',
+        //         url: "/email/send",
+        //
+        //         ContentType: "application/json",
+        //         dataType: "json",
+        //         data: {to: Email, subject: Subject, content: Text},
+        //         success: function (res) {
+        //             alert(res.message)
+        //             $(location).attr('href', '/email/send')
+        //         },
+        //         error: function (err) {
+        //             console.log(err)
+        //         }
+        //     })
+        //
+        //
+        //     // axios.post('http://localhost:8080/email/send' + data)
+        //     //     .then(response => {
+        //     //         console.log(response)
+        //     //         alert("成功")
+        //     //     })
+        //     //     .catch(error => {
+        //     //         console.log(error)
+        //     //     })
+        //
+        //     // fetch('http://localhost:8080/email/send/' + Email + "/" + Subject + "/" + Text)
+        //     //     .then(response => {
+        //     //         console.log(response)
+        //     //         alert("成功")
+        //     //     })
+        //     //     .catch(error => {
+        //     //         console.log(error)
+        //     //     })
+        //
+        //     // $(function () {
+        //     //     $("#btnsend").click(function () {
+        //     //         let url = "http://localhost:8080/email/send"
+        //     //         $.post(url, data)
+        //     //     })
+        //     // })
+        // }
+
+        function sendEmail() {
+            var Email = document.getElementById('email').value;
+            var Subject = document.getElementById('subject').value;
+            var Text = document.getElementById('text').value;
+
+            var xhr = new XMLHttpRequest();
+
+            /**
+             * 请求方法：指定HTTP请求的方法，如"GET"、"POST"等。这个方法不区分大小写，但通常使用大写字母。
+             * URL：请求发送到的URL。这个URL是相对于执行代码的当前页面的（也可以使用绝对路径）。
+             *       重要的是，出于安全考虑，只能向同一个域中使用相同端口和协议的URL发送请求。
+             * 异步：一个布尔值，指定请求是否应该异步处理。默认为true，表示异步处理；
+             *       如果设置为false，则请求将同步处理，JavaScript代码会等待服务器响应后再继续执行。
+             *
+             */
+            xhr.open("POST", "/email/send", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            /**
+             * xhr.readyState 有五个值，分别代表不同的含义
+             * 0：初始化，XMLHttpRequest对象还没有完成初始化
+             *
+             * 1：载入，XMLHttpRequest对象开始发送请求
+             *
+             * 2：载入完成，XMLHttpRequest对象的请求发送完成
+             *
+             * 3：解析，XMLHttpRequest对象开始读取服务器的响应
+             *
+             * 4：完成，XMLHttpRequest对象读取服务器响应结束
+             */
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
+                }
+            };
+
+            /**
+             * JSON.stringify()是一个用于将JavaScript对象转换为JSON字符串的方法。
+             * 这个方法非常有用，因为在前端开发中，
+             * 经常需要将JavaScript对象序列化为字符串，以便在网络传输或存储中使用
+             */
+            var data = JSON.stringify({ to: Email, subject: Subject, content: Text });
+            xhr.send(data);
+
+            return false; // 阻止表单默认提交行为
+        }
+
+        /**
+         * 在上面的 HTML 代码中，我们定义了一个表单，当表单提交时，会调用 sendPostRequest 函数。
+         * 这个函数使用 XMLHttpRequest 对象来发送一个 POST 请求到自己的post请求接口.
+         * 请求的内容类型被设置为 application/json，并且发送了一个 JSON 字符串作为请求体。
+         *
+         * 请注意，这个示例中的 JavaScript 代码是在客户端执行的，而 Thymeleaf 仅用于在服务器端渲染 HTML 页面。
+         * 实际的 POST 请求是由浏览器在客户端发起的，而不是由 Thymeleaf 或服务器端代码发起的。
+         *
+         * 如果你的后端服务需要处理跨域请求（CORS），你可能需要在 Spring Boot 控制器中添加相应的 CORS 配置。
+         */
+    </script>
+</head>
+<body>
+<!-- <p th:text="${message}">Welcome message from the server.</p> -->
+
+<h2>Send an Email</h2>
+<form onsubmit="return sendEmail()">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <label for="subject">Subject:</label>
+    <input type="text" id="subject" name="subject" required>
+    <label for="text">Message:</label>
+    <textarea id="text" name="text" required></textarea>
+    <button id="btnsend" type="submit">Send Email</button>
+</form>
+</body>
+</html>

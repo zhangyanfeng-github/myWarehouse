@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Page</title>
+    <script th:src="@{/script/jquery.min.js}" charset="utf-8"></script>
+    <script>
+
+
+
+        // import axios from 'axios';
+        //
+        // const sendEmail = function () {
+        //     var Email = document.getElementById('email').value;
+        //     var Subject = document.getElementById('subject').value;
+        //     var Text = document.getElementById('text').value;
+        //
+        //     // axios.get('http://localhost:8080/email/send/' + Email + "/" + Subject + "/" + Text)
+        //     //     .then(response => {
+        //     //         console.log(response)
+        //     //         alert("成功")
+        //     //     })
+        //     //     .catch(error => {
+        //     //         console.log(error)
+        //     //     })
+        //
+        //     const data = {
+        //         to: Email,
+        //         subject: Subject,
+        //         content: Text
+        //     }
+        //
+        //     var Email = document.getElementById('email').value;
+        //     var Subject = document.getElementById('subject').value;
+        //     var Text = document.getElementById('text').value;
+        //     $.ajax({
+        //         type: 'post',
+        //         url: "/email/send",
+        //
+        //         ContentType: "application/json",
+        //         dataType: "json",
+        //         data: {to: Email, subject: Subject, content: Text},
+        //         success: function (res) {
+        //             alert(res.message)
+        //             $(location).attr('href', '/email/send')
+        //         },
+        //         error: function (err) {
+        //             console.log(err)
+        //         }
+        //     })
+        //
+        //
+        //     // axios.post('http://localhost:8080/email/send' + data)
+        //     //     .then(response => {
+        //     //         console.log(response)
+        //     //         alert("成功")
+        //     //     })
+        //     //     .catch(error => {
+        //     //         console.log(error)
+        //     //     })
+        //
+        //     // fetch('http://localhost:8080/email/send/' + Email + "/" + Subject + "/" + Text)
+        //     //     .then(response => {
+        //     //         console.log(response)
+        //     //         alert("成功")
+        //     //     })
+        //     //     .catch(error => {
+        //     //         console.log(error)
+        //     //     })
+        //
+        //     // $(function () {
+        //     //     $("#btnsend").click(function () {
+        //     //         let url = "http://localhost:8080/email/send"
+        //     //         $.post(url, data)
+        //     //     })
+        //     // })
+        // }
+
+        function sendEmail() {
+            var Email = document.getElementById('email').value;
+            var Subject = document.getElementById('subject').value;
+            var Text = document.getElementById('text').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/email/send", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
+                }
+            };
+
+            var data = JSON.stringify({ to: Email, subject: Subject, content: Text });
+            xhr.send(data);
+
+            return false; // 阻止表单默认提交行为
+        }
+    </script>
+</head>
+<body>
+<!-- <p th:text="${message}">Welcome message from the server.</p> -->
+
+<h2>Send an Email</h2>
+<form onsubmit="return sendEmail()">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <label for="subject">Subject:</label>
+    <input type="text" id="subject" name="subject" required>
+    <label for="text">Message:</label>
+    <textarea id="text" name="text" required></textarea>
+    <button id="btnsend" type="submit">Send Email</button>
+</form>
+</body>
+</html>
